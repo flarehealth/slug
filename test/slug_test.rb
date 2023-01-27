@@ -126,6 +126,13 @@ describe Slug do
     assert_equal 'test-headline', article.slug
   end
 
+  it "does not modify the field upon which a slug is built" do
+    article = Article.create!(:headline => 'Test Headline, With a Comma')
+    article.reload
+    assert_equal 'Test Headline, With a Comma', article.headline
+    assert_equal 'test-headline-with-a-comma', article.slug
+  end
+
   describe "resetting a slug" do
     before do
       @article = Article.create(:headline => 'test headline')
